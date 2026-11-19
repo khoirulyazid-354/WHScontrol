@@ -14,6 +14,20 @@
 </head>
 <body class="bg-[#F9FAFB] text-slate-900 min-h-screen flex flex-col relative overflow-x-hidden font-sans">
 
+<!-- ===== BACKGROUND VIDEO (tambahan) ===== -->
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+  <video
+    class="absolute inset-0 w-full h-full object-cover"
+    autoplay muted loop playsinline preload="auto"
+    disablepictureinpicture
+  >
+    <source src="background.mp4.mp4" type="video/mp4">
+  </video>
+  <!-- Lapisan putih tipis agar teks tetap terbaca. Atur angka /60 (0-100) sesuai selera -->
+  <div class="absolute inset-0 bg-white/60"></div>
+</div>
+<!-- ===== END BACKGROUND VIDEO ===== -->
+
 <div class="top-rainbow-bar fixed top-0 left-0 right-0 z-50"></div>
 
 <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">

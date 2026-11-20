@@ -35,7 +35,8 @@ Material Name, Material Description, YOFC Qty. Baris yang tanggal atau Qty-nya t
 Halaman harus dibuka lewat alamat web (mis. GitHub Pages), bukan klik dua kali pada index.html.
 
 ## Memperbarui data BOQ
-Ganti `data/boq.csv`. Kolom wajib: Subcont, Region, Site Name, PO Number, Material Name, YOFC Qty.
+Ganti `data/boq.csv` (pemisah `;` atau `,`, UTF-8; baris pertama harus judul kolom, bukan baris kosong atau `#N/A`).
+Satu baris di halaman = satu BOQ (Subcont + Site Name). Klik baris untuk melihat detail semua material. Kolom wajib: Subcont, Region, Site Name, PO Number, Material Name, YOFC Qty.
 Kolom lain (City, Site Type, Status, Link Doc, Verified, Recon Date, Subcont Qty) opsional.
 Status yang diberi warna: RFSC, BOQ Opname, Redline, FO Cut, Vandalisme (status lain tetap tampil, warna abu-abu).
 
@@ -44,7 +45,7 @@ Material berawalan `CABLE` dihitung sebagai Kabel. Material lain (FAT, FDT, clos
 
 ## Aturan pembersihan data (otomatis saat dimuat)
 - Baris dengan Subcont kosong atau galat Excel (`#N/A`, `#REF!`, `-`) dilewati dan tidak menjadi akun login.
-- Baris dengan YOFC Qty bukan angka, atau Site / Material kosong, dilewati. Jumlahnya tampil di baris info (khusus ADMIN).
+- Baris dengan Site / Material kosong dilewati. Baris dengan YOFC Qty kosong atau bukan angka tetap tampil dengan Qty "-". Jumlah baris yang dilewati tampil di baris info (khusus ADMIN).
 - Region kosong atau `#N/A` ditampilkan sebagai "Tanpa Region".
 - Nama material pada BOQ disamakan menjadi huruf besar (`Cable-24` menjadi `CABLE-24`).
 - Spasi ganda pada nama subcont dirapikan. Login tidak membedakan huruf besar/kecil.

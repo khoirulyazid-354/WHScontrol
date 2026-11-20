@@ -191,8 +191,8 @@
   </header>
   <main class="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-8 py-5 sm:py-8 flex flex-col gap-5">
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-      <div class="bg-white rounded-2xl border border-slate-200 p-4"><p class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Baris Data</p><p id="boq-s-rows" class="text-2xl sm:text-3xl font-extrabold text-[#006699] mt-1">0</p></div>
-      <div class="bg-white rounded-2xl border border-slate-200 p-4"><p class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Site</p><p id="boq-s-site" class="text-2xl sm:text-3xl font-extrabold text-sky-600 mt-1">0</p></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-4"><p class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Jumlah BOQ</p><p id="boq-s-rows" class="text-2xl sm:text-3xl font-extrabold text-[#006699] mt-1">0</p></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-4"><p class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Baris Material</p><p id="boq-s-site" class="text-2xl sm:text-3xl font-extrabold text-sky-600 mt-1">0</p></div>
       <div class="bg-white rounded-2xl border border-slate-200 p-4"><p class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Total Kabel</p><p id="boq-s-cable" class="text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">0</p></div>
       <div class="bg-white rounded-2xl border border-slate-200 p-4"><p class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Total Perangkat</p><p id="boq-s-device" class="text-2xl sm:text-3xl font-extrabold text-pink-600 mt-1">0</p></div>
       <div class="bg-white rounded-2xl border border-slate-200 p-4 col-span-2 lg:col-span-1"><p id="boq-s-sub-l"class="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Subcont</p><p id="boq-s-sub" class="text-2xl sm:text-3xl font-extrabold text-lime-700 mt-1">0</p></div>
@@ -202,7 +202,7 @@
     <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5">
       <div class="relative mb-3">
         <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-        <input id="boq-q" type="search" oninput="boqSet('q',this.value)" placeholder="Cari site, PO number, material, status..." class="w-full h-11 pl-10 pr-3 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#006699] focus:ring-2 focus:ring-[#006699]/10">
+        <input id="boq-q" type="search" oninput="boqSet('q',this.value)" placeholder="Cari site, PO number, subcont, material, status..." class="w-full h-11 pl-10 pr-3 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#006699] focus:ring-2 focus:ring-[#006699]/10">
       </div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
         <select id="boq-sub" data-admin onchange="boqSet('sub',this.value)" class="w-full h-10 px-3 text-sm bg-white border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:border-[#006699] focus:ring-2 focus:ring-[#006699]/10 cursor-pointer col-span-2 hidden"></select>
@@ -210,7 +210,7 @@
         <select id="boq-status" onchange="boqSet('status',this.value)" class="w-full h-10 px-3 text-sm bg-white border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:border-[#006699] focus:ring-2 focus:ring-[#006699]/10 cursor-pointer"></select>
         <select id="boq-mat" onchange="boqSet('mat',this.value)" class="w-full h-10 px-3 text-sm bg-white border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:border-[#006699] focus:ring-2 focus:ring-[#006699]/10 cursor-pointer"></select>
         <select id="boq-sort" onchange="boqSet('sort',this.value)" class="w-full h-10 px-3 text-sm bg-white border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:border-[#006699] focus:ring-2 focus:ring-[#006699]/10 cursor-pointer">
-          <option value="site">Site A-Z</option><option value="sub">Subcont A-Z</option><option value="qty-desc">Qty terbesar</option><option value="qty-asc">Qty terkecil</option>
+          <option value="site">Site A-Z</option><option value="sub">Subcont A-Z</option><option value="kabel-desc">Kabel terbesar</option><option value="perangkat-desc">Perangkat terbanyak</option>
         </select>
         <button type="button" onclick="boqReset()" class="h-10 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold flex items-center justify-center gap-2 cursor-pointer"><i data-lucide="rotate-ccw" class="w-4 h-4"></i><span>Reset</span></button>
       </div>
@@ -224,18 +224,12 @@
         <button type="button" onclick="boqPick('')" class="text-xs font-bold text-[#006699] hover:underline cursor-pointer shrink-0">Semua subcont</button>
       </div>
       <div class="overflow-x-auto"><table class="w-full text-left text-sm">
-        <thead><tr class="bg-slate-50 text-slate-600 text-[11px] uppercase tracking-wider border-b border-slate-200"><th class="py-2.5 px-4 font-bold">Subcont</th><th class="py-2.5 px-4 font-bold text-right">Site</th><th class="py-2.5 px-4 font-bold text-right">Baris</th><th class="py-2.5 px-4 font-bold text-right">Kabel</th><th class="py-2.5 px-4 font-bold text-right">Perangkat</th></tr></thead>
+        <thead><tr class="bg-slate-50 text-slate-600 text-[11px] uppercase tracking-wider border-b border-slate-200"><th class="py-2.5 px-4 font-bold">Subcont</th><th class="py-2.5 px-4 font-bold text-right">BOQ</th><th class="py-2.5 px-4 font-bold text-right">Baris</th><th class="py-2.5 px-4 font-bold text-right">Kabel</th><th class="py-2.5 px-4 font-bold text-right">Perangkat</th></tr></thead>
         <tbody id="boq-recap-body" class="divide-y divide-slate-100"></tbody>
       </table></div>
     </div>
 
-    <div class="hidden md:block bg-white rounded-2xl border border-slate-200 overflow-x-auto">
-      <table class="w-full text-left text-sm">
-        <thead id="boq-thead"></thead>
-        <tbody id="boq-tbody" class="divide-y divide-slate-100"></tbody>
-      </table>
-    </div>
-    <div id="boq-cards" class="md:hidden space-y-2.5"></div>
+    <div id="boq-cards" class="grid grid-cols-1 lg:grid-cols-2 gap-2.5"></div>
 
     <div class="flex items-center justify-between gap-3">
       <button type="button" id="boq-prev" onclick="boqPage(-1)" class="h-10 px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-sm font-semibold text-slate-700 flex items-center gap-1.5 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"><i data-lucide="chevron-left" class="w-4 h-4"></i>Sebelumnya</button>
@@ -244,6 +238,25 @@
     </div>
   </main>
   <footer class="text-center text-[11px] text-slate-400 py-5 px-4">&copy; 2026 YOFC &middot; WHControl</footer>
+
+  <!-- Popup detail BOQ -->
+  <div id="boq-modal" class="hidden fixed inset-0 z-40 flex items-end sm:items-center justify-center bg-slate-900/50 backdrop-blur-[2px] p-0 sm:p-6" onclick="if(event.target===this)boqClose()">
+    <div class="w-full sm:max-w-3xl max-h-[92vh] sm:max-h-[86vh] flex flex-col bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="top-rainbow-bar"></div>
+      <div class="px-5 sm:px-6 pt-4 pb-3 flex items-start justify-between gap-3 border-b border-slate-100">
+        <div class="min-w-0"><h3 id="boq-d-site" class="text-base sm:text-lg font-extrabold text-slate-900 leading-snug break-words"></h3><p id="boq-d-sub" class="text-xs sm:text-[13px] text-slate-500 mt-0.5"></p></div>
+        <div class="flex items-center gap-2 shrink-0"><span id="boq-d-badge"></span><button type="button" onclick="boqClose()" aria-label="Tutup" class="w-9 h-9 rounded-xl border border-slate-200 hover:bg-slate-50 flex items-center justify-center text-slate-500 cursor-pointer"><i data-lucide="x" class="w-4 h-4"></i></button></div>
+      </div>
+      <div id="boq-d-body" class="px-5 sm:px-6 py-4 overflow-y-auto">
+        <div id="boq-d-meta" class="flex flex-wrap gap-x-5 gap-y-1 text-[13px] text-slate-500 mb-3"></div>
+        <div class="overflow-x-auto"><table class="w-full text-left text-sm">
+          <thead><tr class="text-[11px] uppercase tracking-wider text-slate-400 border-b border-slate-200"><th class="py-2 pr-3 font-bold">Material</th><th class="py-2 pr-3 font-bold text-right">YOFC Qty</th><th class="py-2 pr-3 font-bold text-right">Subcont Qty</th><th class="py-2 pr-3 font-bold">Verified</th><th class="py-2 pr-3 font-bold">Recon Date</th><th class="py-2 pr-3 font-bold">Remark</th><th class="py-2 pr-3 font-bold">Dokumen</th></tr></thead>
+          <tbody id="boq-d-rows" class="divide-y divide-slate-100"></tbody>
+          <tfoot id="boq-d-foot"></tfoot>
+        </table></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- VIEW: REPORT FORM -->

@@ -12,7 +12,7 @@ js/core/csv.js          Pembaca CSV (pemisah koma / titik koma, tanggal, angka)
 js/core/util.js         Fungsi bantu (format angka, pemisah Kabel/Perangkat)
 js/core/auth.js         Login, logout, sesi
 js/core/nav.js          Navigasi halaman dan menu MASTER SMDT
-js/pages/do.js          Halaman Total DO (memuat data/do.csv)
+js/pages/do.js          Halaman Total DO (memuat data/do.csv, satu baris = satu DO)
 js/pages/to.js          Halaman Total TO (menunggu data)
 js/pages/boq.js         Halaman Total BOQ (memuat data/boq.csv)
 data/do.csv             Data Delivery Order
